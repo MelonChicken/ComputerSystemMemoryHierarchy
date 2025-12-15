@@ -37,11 +37,10 @@ public class L2Cache extends Memory {
      * @return Hit 시 true, Miss 시 false
      */
     public boolean lookUp(int address) throws Exception {
-        int index = address % this.capacity; // index = address % 16
         int tag = address / this.capacity;   // tag = address / 16
 
         // 상위 클래스 Memory의 read(index)를 사용하여 CacheLine을 가져옵니다.
-        CacheLine existingLine = this.read(index);
+        CacheLine existingLine = this.read(address);
 
         // 1. 해당 index에 라인이 없거나 (read가 null 반환) 유효하지 않으면 (비어있음)
         if (existingLine == null || !existingLine.isValid()) {
@@ -75,7 +74,7 @@ public class L2Cache extends Memory {
         int tag = address / this.capacity;
 
         // 상위 클래스 Memory의 read(index)를 사용하여 CacheLine을 가져옵니다.
-        CacheLine line = this.read(index);
+        CacheLine line = this.read(address);
 
         // read가 null을 반환할 경우 새로운 CacheLine 객체 생성 (팀원의 MainMemory 로직과 동일)
         if (line == null) line = new CacheLine();

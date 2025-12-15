@@ -20,10 +20,9 @@ public class L1Cache extends Memory{
     }
 
     public boolean lookUp(int address) throws Exception {
-        int index = address % this.capacity;
         int tag = address / this.capacity;
 
-        CacheLine existingLine = this.read(index);
+        CacheLine existingLine = this.read(address);
 
         if (existingLine == null || !existingLine.isValid()) {  // valid가 false면 비어있음
             this.miss++;
@@ -44,7 +43,7 @@ public class L1Cache extends Memory{
         int index = address % this.capacity;      // 항상 0
         int tag = address / this.capacity;        // 항상 address
 
-        CacheLine line = this.read(index);
+        CacheLine line = this.read(address);
         if (line == null) line = new CacheLine();
 
         line.setTrueValid();

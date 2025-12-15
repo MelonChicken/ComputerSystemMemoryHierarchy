@@ -32,12 +32,14 @@ class Memory{
     }
 
     /**
-     * @param index : 현재 sets 배열에서 확인하려는 위치
+     * @param address : 현재 sets 배열에서 확인하려는 위치
      * @return 존재하면 ? CachLine : null ;
      * 현재 메모리에 저장된 sets에서 특정 tag값을 저장합니다.
      * 2-way set association을 고려하지 않았습니다.
      */
-    public CacheLine read(int index) throws Exception{
+    public CacheLine read(int address) throws Exception{
+
+        int index = address % this.sets.length;
 
         if(this.sets.length < index){
             System.err.println("Error: index is out of range");
@@ -57,6 +59,7 @@ class Memory{
      * 2-way set association을 고려하지 않았습니다.
      */
     public void write(int index, CacheLine line) throws Exception {
+
         if(!line.isValid()){
             System.err.println("Invalid CacheLine");
             return;
