@@ -73,7 +73,7 @@ public class L3Cache {
 		
 		// 2. 비어있는 way가 하나라도 존재하는 경우 (way 다 비어있으면 0방향 부터 채움) 
 		for (int i = 0; i < ways; i++) {
-			CacheLine line = lines[capacity][i];
+			CacheLine line = lines[index][i];
 			if (!line.isValid()) {
 				line.setTrueValid();
 				line.setTag(tag);
@@ -85,7 +85,7 @@ public class L3Cache {
 		
 		// 3. 두 쪽 다 만석인 경우 -> toBeKilled 를 처분한다. 
 		int killTarget = toBeKilled[index];
-		CacheLine line = lines[capacity][killTarget];
+		CacheLine line = lines[index][killTarget];
 		line.setTrueValid();
 		line.setTag(tag);
 		line.setBlock(address);
