@@ -1,0 +1,4 @@
+fsspec
+pyarrow
+pandas
+huggingface_hub
