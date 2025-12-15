@@ -1,7 +1,7 @@
 public class L1Cache extends Memory{
     private int hit = 0;
     private int miss = 0;
-    private int capacity = 1;
+    private final int capacity = 1;
 
     public L1Cache() {
         super(1);
@@ -41,11 +41,11 @@ public class L1Cache extends Memory{
 
 
     public void insert(int address) throws Exception {
-        int index = 0;
-        int tag = address;
+        int index = address % this.capacity;      // 항상 0
+        int tag = address / this.capacity;        // 항상 address
 
-        CacheLine line = this.read(0);
-        if (line == null) line = new CacheLine(); // read가 null일 수 있다면
+        CacheLine line = this.read(index);
+        if (line == null) line = new CacheLine();
 
         line.setTrueValid();
         line.setTag(tag);
@@ -53,7 +53,5 @@ public class L1Cache extends Memory{
 
         this.write(index, line);
     }
-
-
 }
 
