@@ -19,34 +19,34 @@ class Memory{
 
     /**
      * @param line : 현재 넣으려는 데이터 값
-     * @param tag : 현재 sets 배열에 넣을 위치
+     * @param index : 현재 sets 배열에 넣을 위치
      */
-    public void setSets(int tag, CacheLine line) throws Exception{
+    public void setSets(int index, CacheLine line) throws Exception{
 
-        if(this.sets.length < tag){
+        if(this.sets.length < index){
             System.err.println("Error: set number out of range");
             return;
         }
 
-        this.sets[tag] = line;
+        this.sets[index] = line;
     }
 
     /**
-     * @param tag : 현재 sets 배열에서 확인하려는 위치
+     * @param index : 현재 sets 배열에서 확인하려는 위치
      * @return 존재하면 ? CachLine : null ;
      * 현재 메모리에 저장된 sets에서 특정 tag값을 저장합니다.
      * 2-way set association을 고려하지 않았습니다.
      */
-    public CacheLine read(int tag){
+    public CacheLine read(int index) throws Exception{
 
-        if(this.sets.length < tag){
-            System.err.println("Error: set number out of range");
+        if(this.sets.length < index){
+            System.err.println("Error: index is out of range");
         }
 
-        if(this.sets[tag] == null){
+        if(this.sets[index] == null){
             return null;
         } else {
-            return this.sets[tag];
+            return this.sets[index];
         }
     }
 
@@ -56,12 +56,12 @@ class Memory{
      *             이때 값이 이미 해당 tag에 존재한다면 quadratic probing을 활용합니다.
      * 2-way set association을 고려하지 않았습니다.
      */
-    public void write(CacheLine line) throws Exception {
+    public void write(int index, CacheLine line) throws Exception {
         if(!line.isValid()){
             System.err.println("Invalid CacheLine");
             return;
         }
 
-        setSets(line.getTag(), line);
+        setSets(index, line);
     }
 }
