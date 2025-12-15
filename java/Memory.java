@@ -62,8 +62,6 @@ class Memory{
             return;
         }
 
-        CacheLine currentLine = this.read(line.getTag());
-
         setSets(line.getTag(), line);
     }
 }
