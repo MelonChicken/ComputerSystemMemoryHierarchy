@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class CacheLine {
 	
 	/*
@@ -6,12 +8,12 @@ public class CacheLine {
 	
 	Boolean valid;
 	int tag;
-	int[] data;
+	int block;
 	
-	public CacheLine(int blockSize) {
+	public CacheLine() {
 		this.valid = false; // 비어있음 초기에 
-		this.tag = 0; // 이거 몇으로 설정해야할까? 
-		this.data = new int[blockSize]; // 오버라이드 하기로 하긴 했는데, 그냥 이대로 data 어레이로 0 이면 direct map, 1이면 2-way 로 구현되어도 될지도
+		this.tag = 0;  
+		this.block = 0; 
 	}
 	
 	// Valid 한가?
@@ -19,15 +21,36 @@ public class CacheLine {
 		return valid; 
 	}
 	
+	// Valid true 로 수정 
+	public void setTrueValid() {
+		this.valid = true;
+	}
+	
+	// Valid false 로 수정 
+	public void setFalseValid() {
+		this.valid = false;
+	}
+	
 	// tag 가져오기 
 	public int getTag() { 
 		return tag; 
 	}
 	
-	// data 가져오기 
-	public int[] getData() {
-		return data;
+	// tag 수정하기 
+	public void setTag(int numTag) {
+		this.tag = numTag;
 	}
+	
+	// block 가져오기 
+	public int getBlock() {
+		return block;
+	}
+	
+	// block 설정하기 
+	public void setBlock(int blockNum) {
+		this.block = blockNum;
+	}
+
 	
 	// 태그가 동일한가?   
 	public boolean isSameTag(int tag) {
